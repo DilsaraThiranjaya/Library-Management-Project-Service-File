@@ -1,0 +1,27 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: file-service
+  config:
+    import: "configserver:"
+  cloud:
+    config:
+      uri: ${CONFIG_SERVER_URL:http://localhost:8888}
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+app:
+  # Replace YOUR_GCP_PROJECT_ID with your actual Google Cloud Project ID
+  gcs-bucket: "library-files-YOUR_GCP_PROJECT_ID"
