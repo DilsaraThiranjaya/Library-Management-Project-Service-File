@@ -1,2 +1,3 @@
-# GCS credentials
+# GCS credentials - never commit service account keys
+src/main/resources/*.json
 target/
