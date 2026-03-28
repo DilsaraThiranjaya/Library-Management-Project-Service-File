@@ -3,7 +3,7 @@ spring:
     name: file-service
 
   config:
-    import: "optional:configserver:"
+    import: "configserver:"
 
   cloud:
     config:
