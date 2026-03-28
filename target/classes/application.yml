@@ -3,8 +3,8 @@ spring:
     name: file-service
 
   config:
-    import: "configserver:http://localhost:8888/"
+    import: "configserver"
 
   cloud:
     config:
-      uri: ${CONFIG_SERVER_URL:http://localhost:8888}
+      uri: http://config.platform:8888
