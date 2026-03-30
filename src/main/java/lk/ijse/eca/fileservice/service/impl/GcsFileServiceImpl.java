@@ -22,6 +22,9 @@ public class GcsFileServiceImpl implements FileService {
     @Value("${gcp.bucket-id}")
     private String bucketName;
 
+    @Value("${file.service.base-url:http://localhost:8080/api/files}")
+    private String baseUrl;
+
     @Override
     public Map<String, Object> uploadFile(MultipartFile file) throws IOException {
         String originalFileName = file.getOriginalFilename();
@@ -39,7 +42,7 @@ public class GcsFileServiceImpl implements FileService {
 
         storage.create(blobInfo, file.getBytes());
 
-        String publicUrl = String.format("http://localhost:8080/api/files/%s", generatedFileName);
+        String publicUrl = String.format("%s/%s", baseUrl, generatedFileName);
 
         return Map.of(
                 "filename", generatedFileName,
@@ -58,7 +61,7 @@ public class GcsFileServiceImpl implements FileService {
             fileInfo.put("filename", blob.getName());
             fileInfo.put("contentType", blob.getContentType());
             fileInfo.put("size", blob.getSize());
-            fileInfo.put("publicUrl", String.format("http://localhost:8080/api/files/%s", blob.getName()));
+            fileInfo.put("publicUrl", String.format("%s/%s", baseUrl, blob.getName()));
 
             // Get original filename from metadata if available
             Map<String, String> metadata = blob.getMetadata();
